@@ -4,13 +4,6 @@ import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError } from "@amid3ntickets/common";
 
-import {
-  currentUserRouter,
-  signinRouter,
-  signoutRouter,
-  signupRouter,
-} from "./routes";
-
 const app = express();
 app.set("trust proxy", true);
 
@@ -21,11 +14,6 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
-
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
 
 app.use("*", () => {
   throw new NotFoundError();
