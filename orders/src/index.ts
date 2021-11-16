@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 
 import app from "./app";
 import natsWrapper from "./nats-wrapper";
-import { TicketCreatedListener, TicketUpdatedListener } from "./events";
+import {
+  TicketCreatedListener,
+  TicketUpdatedListener,
+  ExpirationCompleteListener,
+} from "./events";
 
 const start = async () => {
   const variableNames = [
@@ -34,6 +38,7 @@ const start = async () => {
 
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
+    new ExpirationCompleteListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI!);
     console.log("Connected to MongoDB");
