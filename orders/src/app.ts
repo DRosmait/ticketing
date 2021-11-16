@@ -8,6 +8,13 @@ import {
   currentUser,
 } from "@amid3ntickets/common";
 
+import {
+  showAllOrdersRouter,
+  showOrderRouter,
+  createOrderRouter,
+  deleteOrderRouter,
+} from "./routes";
+
 const app = express();
 app.set("trust proxy", true);
 
@@ -19,6 +26,11 @@ app.use(
   })
 );
 app.use(currentUser);
+
+app.use(showAllOrdersRouter);
+app.use(showOrderRouter);
+app.use(createOrderRouter);
+app.use(deleteOrderRouter);
 
 app.use("*", () => {
   throw new NotFoundError();
