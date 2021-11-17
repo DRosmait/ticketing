@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 jest.mock("../nats-wrapper");
 
 declare global {
-  function signin(): string[];
+  function signin(id?: string): string[];
 }
 
 let mongo: MongoMemoryServer;
@@ -34,9 +34,9 @@ afterAll(async () => {
   await mongo.stop();
 });
 
-global.signin = function () {
+global.signin = function (id?: string) {
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: "test@test.com",
   };
 

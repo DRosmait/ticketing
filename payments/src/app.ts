@@ -8,6 +8,8 @@ import {
   currentUser,
 } from "@amid3ntickets/common";
 
+import { createChargeRouter } from "./routes";
+
 const app = express();
 app.set("trust proxy", true);
 
@@ -19,6 +21,8 @@ app.use(
   })
 );
 app.use(currentUser);
+
+app.use(createChargeRouter);
 
 app.use("*", () => {
   throw new NotFoundError();
