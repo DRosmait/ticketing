@@ -8,8 +8,11 @@ import {
   requireAuth,
   validateRequest,
 } from "@amid3ntickets/common";
+
 import { Order, Payment } from "../models";
 import { stripe } from "../stripe";
+import { PaymentCreatedPublisher } from "../events";
+import natsWrapper from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -37,6 +40,13 @@ router.post(
     const payment = Payment.build({
       orderId,
       stripeId: charge.id,
+    });
+    await payment.save();
+
+    await new PaymentCreatedPublisher(natsWrapper.client).publish({
+      id: payment.id,
+      orderId: payment.orderId,
+      stripeId: payment.stripeId,
     });
 
     res.status(201).send({ success: true });
