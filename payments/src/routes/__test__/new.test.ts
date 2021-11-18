@@ -88,7 +88,7 @@ describe("new.ts", () => {
 
     expect(chargeOptions.source).toEqual("tok_visa");
     expect(chargeOptions.amount).toEqual(order.price * 100);
-    expect(chargeOptions.currancy).toEqual("eur");
+    expect(chargeOptions.currency).toEqual("eur");
 
     const payment = await Payment.findOne({
       orderId: order.id,
