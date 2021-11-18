@@ -25,7 +25,7 @@ beforeEach(async () => {
   const collections = mongoose.connection.collections;
 
   for (let key in collections) {
-    collections[key].deleteMany({});
+    await collections[key].deleteMany({});
   }
 });
 
