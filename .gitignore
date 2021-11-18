@@ -157,5 +157,5 @@ jspm_packages
 .next
 
 # Shared library
-/common
+/common/build
 /nats-test
