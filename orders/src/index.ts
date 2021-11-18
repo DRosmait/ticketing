@@ -10,6 +10,8 @@ import {
 } from "./events";
 
 const start = async () => {
+  console.log("Starting...");
+
   const variableNames = [
     "JWT_KEY",
     "MONGO_URI",
